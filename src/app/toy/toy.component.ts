@@ -42,11 +42,6 @@ export class ToyComponent implements AfterViewInit {
     /** How many times an explosion has happened */
     public timesExploded: number = 0;
 
-    // /**
-    //  * The distance between the two furthest away
-    //  * particles in the last frame
-    //  */
-    // public lastMaxDist: number = 0;
 
     /** Prepares the canvas for rendering */
     ngAfterViewInit() {
