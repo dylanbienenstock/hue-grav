@@ -18,6 +18,12 @@ declare interface SimulationConfig {
     /** Shows or hides the mouse cursor */
     showCursor: boolean;
 
+    /** 
+     * Opacity of the rect used to clear the screen,
+     * lower opactity = longer trails
+     */
+    clearRectOpacity: number;
+
     /** Decrease in velocity per frame */
     velocityDampening: number;
 

@@ -13,6 +13,7 @@ export class AppComponent {
 
     public config: SimulationConfig = {
         showCursor: true,
+        clearRectOpacity: 0.2,
         velocityDampening: 0.005,
         gravitationalConstant: 0.01,
         particles: {

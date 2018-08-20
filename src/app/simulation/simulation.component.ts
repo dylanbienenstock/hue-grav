@@ -134,7 +134,7 @@ export class SimulationComponent implements AfterViewInit {
 
     /** Clears the screen to black */
     clearScreen() {
-        this.ctx.fillStyle = "black";
+        this.ctx.fillStyle = `rgba(0, 0, 0, ${ this.config.clearRectOpacity })`;
         this.ctx.fillRect(0, 0, this.clientRect.width, this.clientRect.height);
     }
 
