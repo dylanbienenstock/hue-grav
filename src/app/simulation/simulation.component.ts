@@ -1,11 +1,12 @@
 import { Component, AfterViewInit, ElementRef, ViewChild, Input, HostListener } from '@angular/core';
 
 @Component({
-    selector: 'app-toy',
-    templateUrl: './toy.component.html',
-    styleUrls: ['./toy.component.scss']
+    selector: 'app-simulation',
+    templateUrl: './simulation.component.html',
+    styleUrls: ['./simulation.component.scss']
 })
-export class ToyComponent implements AfterViewInit {
+
+export class SimulationComponent implements AfterViewInit {
 
     constructor() { }
     
