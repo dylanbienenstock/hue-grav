@@ -9,6 +9,9 @@ import { Component, AfterViewInit, ElementRef, ViewChild, Input, HostListener } 
 export class SimulationComponent implements AfterViewInit {
 
     constructor() { }
+
+    /** If the simulation is playing or paused */
+    @Input() playing: boolean;
     
     /** Simulation parameters */
     @Input() config: SimulationConfig;
@@ -186,56 +189,60 @@ export class SimulationComponent implements AfterViewInit {
         }
 
         for (let particle of this.particles) {
-            // Difference between mouse and particle position
-            let mpDiff = this.getDiff2D(this.mouse, particle.position);
+            if (this.playing) {
+                // Difference between mouse and particle position
+                let mpDiff = this.getDiff2D(this.mouse, particle.position);
 
-            let G = this.config.gravitationalConstant;
-            let r = Math.sqrt(mpDiff.x ** 2 + mpDiff.y ** 2);
+                let G = this.config.gravitationalConstant;
+                let r = Math.sqrt(mpDiff.x ** 2 + mpDiff.y ** 2);
+                
+                // Do I need to do this?
+                let angle = Math.atan2(mpDiff.y, mpDiff.x);
+                let headingVector = <Vector2D> {
+                    x: Math.cos(angle),
+                    y: Math.sin(angle)
+                }
+
+                // If you want actual Newtonian gravity:
+                // change the last * to a /
+                particle.velocity.x += headingVector.x * G * Math.sqrt(r);
+                particle.velocity.y += headingVector.y * G * Math.sqrt(r);
+
+                particle.position.x += particle.velocity.x;
+                particle.position.y += particle.velocity.y;
+
+                // Velocity dampening
+                particle.velocity.x *= 1 - this.config.velocityDampening;
+                particle.velocity.y *= 1 - this.config.velocityDampening;
             
-            // Do I need to do this?
-            let angle = Math.atan2(mpDiff.y, mpDiff.x);
-            let headingVector = <Vector2D> {
-                x: Math.cos(angle),
-                y: Math.sin(angle)
+                // Party mode
+                particle.hue += 5;
+
+                // Calculate particleBounds
+                particleBounds.min.x = Math.min(particleBounds.min.x, particle.position.x);
+                particleBounds.min.y = Math.min(particleBounds.min.y, particle.position.y);
+                particleBounds.max.x = Math.max(particleBounds.max.x, particle.position.x);
+                particleBounds.max.y = Math.max(particleBounds.max.y, particle.position.y);
             }
-
-            // If you want actual Newtonian gravity:
-            // change the last * to a /
-            particle.velocity.x += headingVector.x * G * Math.sqrt(r);
-            particle.velocity.y += headingVector.y * G * Math.sqrt(r);
-
-            particle.position.x += particle.velocity.x;
-            particle.position.y += particle.velocity.y;
-
-            // Velocity dampening
-            particle.velocity.x *= 1 - this.config.velocityDampening;
-            particle.velocity.y *= 1 - this.config.velocityDampening;
-        
-            // Party mode
-            particle.hue += 5;
 
             // Draw the particle
             this.drawParticle(particle);
-
-            // Calculate particleBounds
-            particleBounds.min.x = Math.min(particleBounds.min.x, particle.position.x);
-            particleBounds.min.y = Math.min(particleBounds.min.y, particle.position.y);
-            particleBounds.max.x = Math.max(particleBounds.max.x, particle.position.x);
-            particleBounds.max.y = Math.max(particleBounds.max.y, particle.position.y);
         }
 
-        // Length of bounds' diagonal
-        let pbDiff = this.getDiff2D(particleBounds.min, particleBounds.max);
-        let maxDist = Math.sqrt(pbDiff.x ** 2 + pbDiff.y ** 2);        
+        if (this.playing) {
+            // Length of bounds' diagonal
+            let pbDiff = this.getDiff2D(particleBounds.min, particleBounds.max);
+            let maxDist = Math.sqrt(pbDiff.x ** 2 + pbDiff.y ** 2);        
 
-        // Decide if it's time for an explosion
-        if (maxDist < this.config.explosion.triggerRadius && this.canExplode) {
-            this.canExplode = false;
-            this.timesExploded++;
+            // Decide if it's time for an explosion
+            if (maxDist < this.config.explosion.triggerRadius && this.canExplode) {
+                this.canExplode = false;
+                this.timesExploded++;
 
-            this.explode();
-        } else if (maxDist > this.config.explosion.triggerRadius && !this.canExplode) {
-            this.canExplode = true;
+                this.explode();
+            } else if (maxDist > this.config.explosion.triggerRadius && !this.canExplode) {
+                this.canExplode = true;
+            }
         }
         
         window.requestAnimationFrame(this.render.bind(this));

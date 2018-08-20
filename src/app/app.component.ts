@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 
 @Component({
     selector: 'app-root',
@@ -7,9 +7,11 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
+    public playing: boolean = true;
+
     public config: SimulationConfig = {
         showCursor: true,
-        velocityDampening: 0.001,
+        velocityDampening: 0.005,
         gravitationalConstant: 0.01,
         particles: {
             count: 1024,
@@ -18,8 +20,15 @@ export class AppComponent {
         },
         explosion: {
             triggerRadius: 100,
-            velocity: 20,
+            velocity: 17.5,
             spread: 1
         }
     };
+
+    @HostListener("window:keypress", ["$event"])
+    onKeyPress(e: KeyboardEvent) {
+        if (e.key == " ") {
+            this.playing = !this.playing;
+        }
+    }
 }

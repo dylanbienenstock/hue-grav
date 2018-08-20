@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-interface',
-  templateUrl: './interface.component.html',
-  styleUrls: ['./interface.component.scss']
+    selector: 'app-interface',
+    templateUrl: './interface.component.html',
+    styleUrls: ['./interface.component.scss']
 })
-export class InterfaceComponent implements OnInit {
+export class InterfaceComponent {
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit() {
-  }
+    @Input() playing: boolean;
 
+    @Output() playOrPause = new EventEmitter<any>();
 }

@@ -1,2 +1,9 @@
-<app-simulation [config]="config"></app-simulation>
-<app-interface></app-interface>
+<app-simulation
+[playing]="playing"
+[config]="config">
+</app-simulation>
+
+<app-interface
+[playing]="playing"
+(playOrPause)="playing = !playing">
+</app-interface>
