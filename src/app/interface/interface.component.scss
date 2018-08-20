@@ -1,0 +1,32 @@
+.button {
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    background-color: white;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    border-radius: 50%;
+
+    @media (min-width: 768px) {
+        &:hover {
+            background-color: darken(white, 25);
+        }
+
+        &:active {
+            background-color: darken(white, 50);
+        }
+    }
+
+    &.play-pause {
+        position: absolute;
+        left: 12px;
+        top: 12px;
+
+        background-image: url(../../assets/img/pause.svg);
+
+        &.paused {
+            background-image: url(../../assets/img/play.svg);
+        }
+    }
+}
