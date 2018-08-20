@@ -71,6 +71,14 @@ export class ToyComponent implements AfterViewInit {
         };
     }
 
+    @HostListener("window:touchmove", ["$event"])
+    ontouchmove(e: TouchEvent) {
+        this.mouse = {
+            x: e.touches.item(0).clientX,
+            y: e.touches.item(0).clientY,
+        };
+    }
+    
     /** Fixes canvas dimensions, adjusts for high-dpi screens */
     adjustCanvasSize() {
         this.clientRect = this.canvas.getBoundingClientRect();
@@ -145,7 +153,7 @@ export class ToyComponent implements AfterViewInit {
 
     /** Sends the particles off in random directions */
     explode() {
-        let offset = ((0.5 - Math.random()) * 2) * Math.PI * 2;
+        let offset = ((Math.random() - 0.5) * 2) * Math.PI * 2;
 
         for (let particle of this.particles) {
             let velocity = Math.random() * this.config.explosion.velocity;
@@ -194,7 +202,7 @@ export class ToyComponent implements AfterViewInit {
             // change the last * to a /
             particle.velocity.x += headingVector.x * G * Math.sqrt(r);
             particle.velocity.y += headingVector.y * G * Math.sqrt(r);
-        
+
             particle.position.x += particle.velocity.x;
             particle.position.y += particle.velocity.y;
 
