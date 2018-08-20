@@ -19,14 +19,35 @@
     }
 
     &.play-pause {
-        position: absolute;
-        left: 12px;
-        top: 12px;
-
         background-image: url(../../assets/img/pause.svg);
 
         &.paused {
             background-image: url(../../assets/img/play.svg);
+        }
+    }
+
+    &.reset {
+        background-image: url(../../assets/img/reset.svg);
+        background-size: 20px;
+    }
+}
+
+.button-container {
+    position: absolute;
+    margin: 12px;
+
+    &.left-top {
+        display: flex;
+        flex-flow: row nowrap;
+        left: 0;
+        top: 0;
+
+        .button {
+            margin-right: 12px;
+
+            &:last-child {
+                margin-right: 0;
+            }
         }
     }
 }

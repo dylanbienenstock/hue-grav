@@ -1,9 +1,11 @@
 <app-simulation
 [playing]="playing"
+[reset]="reset"
 [config]="config">
 </app-simulation>
 
 <app-interface
 [playing]="playing"
-(playOrPause)="playing = !playing">
+(playOrPause)="playing = !playing"
+(reset)="reset.emit()">
 </app-interface>

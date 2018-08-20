@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'app-root',
@@ -8,6 +8,8 @@ import { Component, HostListener } from '@angular/core';
 
 export class AppComponent {
     public playing: boolean = true;
+
+    public reset = new EventEmitter<any>();
 
     public config: SimulationConfig = {
         showCursor: true,
@@ -27,8 +29,14 @@ export class AppComponent {
 
     @HostListener("window:keypress", ["$event"])
     onKeyPress(e: KeyboardEvent) {
-        if (e.key == " ") {
-            this.playing = !this.playing;
+        switch (e.key) {
+            case " ":
+                this.playing = !this.playing;
+                break;
+            case "r":
+            case "R":
+                this.reset.emit();
+                break;
         }
     }
 }

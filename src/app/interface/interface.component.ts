@@ -12,4 +12,5 @@ export class InterfaceComponent {
     @Input() playing: boolean;
 
     @Output() playOrPause = new EventEmitter<any>();
+    @Output() reset = new EventEmitter<any>();
 }

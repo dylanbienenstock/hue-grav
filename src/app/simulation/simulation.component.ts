@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ElementRef, ViewChild, Input, HostListener } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild, Input, HostListener, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'app-simulation',
@@ -12,6 +12,9 @@ export class SimulationComponent implements AfterViewInit {
 
     /** If the simulation is playing or paused */
     @Input() playing: boolean;
+
+    /** Resets the simulation (not its configuration) */
+    @Input() reset: EventEmitter<any>;
     
     /** Simulation parameters */
     @Input() config: SimulationConfig;
@@ -57,6 +60,10 @@ export class SimulationComponent implements AfterViewInit {
             y: window.innerHeight / 2
         };
 
+        this.reset.subscribe(() => {
+            this.resetSimulation();
+        });
+
         this.adjustCanvasSize();
         this.createParticles();
         this.render();
@@ -97,7 +104,7 @@ export class SimulationComponent implements AfterViewInit {
     createParticles() {
         for (let i = 0; i < this.config.particles.count; i++) {
             let lesserDimension = Math.min(this.clientRect.width, this.clientRect.height);
-            let spawnRadius = lesserDimension / 3;
+            let spawnRadius = lesserDimension / 4;
 
             // Polar to cartesian conversion
             let theta = i * ((2 * Math.PI) / this.config.particles.count);
@@ -116,6 +123,13 @@ export class SimulationComponent implements AfterViewInit {
                 }
             });
         }
+    }
+
+    resetSimulation() {
+        this.timesExploded = 0;
+        this.canExplode = false;
+        this.particles.length = 0;
+        this.createParticles();
     }
 
     /** Clears the screen to black */

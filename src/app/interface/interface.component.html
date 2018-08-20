@@ -1,3 +1,8 @@
-<div class="button play-pause"
-[class.paused]="!playing"
-(click)="playOrPause.emit()"></div>
+<div class="button-container left-top">
+    <div class="button play-pause"
+    [class.paused]="!playing"
+    (click)="playOrPause.emit()"></div>
+
+    <div class="button reset"
+    (click)="reset.emit()"></div>
+</div>
