@@ -1,4 +1,5 @@
 import { Component, HostListener, EventEmitter } from '@angular/core';
+import { FullscreenService } from './fullscreen.service';
 
 @Component({
     selector: 'app-root',
@@ -7,14 +8,16 @@ import { Component, HostListener, EventEmitter } from '@angular/core';
 })
 
 export class AppComponent {
+    constructor(private fullscreen: FullscreenService) { }
+
     public playing: boolean = true;
 
     public reset = new EventEmitter<any>();
 
     public config: SimulationConfig = {
         showCursor: true,
-        clearRectOpacity: 0.2,
-        velocityDampening: 0.005,
+        clearRectOpacity: 0.5,
+        velocityDampening: 0.001,
         gravitationalConstant: 0.01,
         particles: {
             count: 1024,
@@ -38,6 +41,11 @@ export class AppComponent {
             case "R":
                 this.reset.emit();
                 break;
+            case "f":
+            case "F":
+                this.fullscreen.request();
+                break;
         }
+
     }
 }

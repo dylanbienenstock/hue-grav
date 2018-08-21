@@ -94,10 +94,10 @@ export class SimulationComponent implements AfterViewInit {
     adjustCanvasSize() {
         this.clientRect = this.canvas.getBoundingClientRect();
 
-        this.canvas.width = this.clientRect.width * (1 / this.dpr);
-        this.canvas.height = this.clientRect.height * (1 / this.dpr);
+        this.canvas.width = this.clientRect.width * ( this.dpr);
+        this.canvas.height = this.clientRect.height * ( this.dpr);
 
-        this.ctx.scale(1 / this.dpr, 1 / this.dpr);
+        this.ctx.scale( this.dpr,  this.dpr);
     }
 
     /** Creates the particles */

@@ -1,4 +1,5 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { FullscreenService } from '../fullscreen.service';
 
 @Component({
     selector: 'app-interface',
@@ -7,7 +8,7 @@ import { Component, Output, EventEmitter, Input } from '@angular/core';
 })
 export class InterfaceComponent {
 
-    constructor() { }
+    constructor(public fullscreen: FullscreenService) { }
 
     @Input() playing: boolean;
 
