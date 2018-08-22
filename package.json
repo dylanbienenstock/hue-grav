@@ -24,6 +24,7 @@
     "express": "^4.16.3",
     "path": "^0.12.7",
     "rxjs": "^6.0.0",
+    "screenfull": "^3.3.2",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
@@ -35,6 +36,7 @@
     "@types/jasmine": "~2.8.6",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
+    "@types/screenfull": "^3.3.1",
     "codelyzer": "~4.2.1",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",

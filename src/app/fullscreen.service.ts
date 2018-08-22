@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as screenfull from "screenfull";
 
 @Injectable({
     providedIn: 'root'
@@ -8,24 +9,21 @@ export class FullscreenService {
 
     constructor() { }
 
-    public request() {
-        /// @ts-ignore
-        if (document.documentElement.requestFullscreen) {
-            document.documentElement.requestFullscreen();
+    public get active(): boolean {
+        return screenfull.isFullscreen;
+    }
+
+    public request(): void {
+        if (screenfull.enabled) {
+            screenfull.request();
         }
-        /// @ts-ignore
-        else if (document.documentElement.mozRequestFullScreen) {
-        /// @ts-ignore
-            document.documentElement.mozRequestFullScreen();
-        }
-        else if (document.documentElement.webkitRequestFullscreen) {
-        /// @ts-ignore
-            document.documentElement.webkitRequestFullscreen();
-        }
-        /// @ts-ignore
-        else if (document.documentElement.msRequestFullscreen) {
-        /// @ts-ignore
-            document.documentElement.msRequestFullscreen();
-        }
+    }
+
+    public exit(): void {
+        screenfull.exit();
+    }
+
+    public toggle(): void {
+        screenfull.toggle();
     }
 }
