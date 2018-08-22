@@ -5,7 +5,7 @@
     background-color: white;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 16px;
+    background-size: 20px;
     border-radius: 50%;
 
     @media (min-width: 768px) {
@@ -20,6 +20,7 @@
 
     &.play-pause {
         background-image: url(../../assets/img/pause.svg);
+        background-size: 16px;
 
         &.paused {
             background-image: url(../../assets/img/play.svg);
@@ -28,7 +29,14 @@
 
     &.reset {
         background-image: url(../../assets/img/reset.svg);
-        background-size: 20px;
+    }
+
+    &.fullscreen {
+        background-image: url(../../assets/img/maximize.svg);
+
+        &.active {
+            background-image: url(../../assets/img/minimize.svg);
+        }
     }
 }
 

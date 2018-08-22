@@ -6,6 +6,7 @@
     <div class="button reset"
     (click)="reset.emit()"></div>
 
-    <div class="button"
-    (click)="fullscreen.request()"></div>
+    <div class="button fullscreen"
+    [class.active]="fullscreen.active"
+    (click)="fullscreen.toggle()"></div>
 </div>
