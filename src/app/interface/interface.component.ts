@@ -14,4 +14,24 @@ export class InterfaceComponent {
 
     @Output() playOrPause = new EventEmitter<any>();
     @Output() reset = new EventEmitter<any>();
+
+    public labelText: string;
+    public labelShown: boolean;
+    public labelTimeout: any;
+
+    public showLabel(text: string) {
+        clearTimeout(this.labelTimeout);
+
+        this.labelText = text;
+        this.labelShown = true;
+    }
+
+    public hideLabel() {
+        clearTimeout(this.labelTimeout);
+
+        this.labelTimeout = 
+            setTimeout(() => {
+                this.labelShown = false;
+            }, 1000);    
+    }
 }

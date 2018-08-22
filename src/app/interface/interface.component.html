@@ -1,12 +1,27 @@
 <div class="button-container left-top">
     <div class="button play-pause"
     [class.paused]="!playing"
-    (click)="playOrPause.emit()"></div>
+    (click)="showLabel(playing ? 'Play' : 'Pause'); playOrPause.emit()"
+    (mouseenter)="showLabel(playing ? 'Pause' : 'Play')"
+    (mouseleave)="hideLabel()"></div>
 
     <div class="button reset"
-    (click)="reset.emit()"></div>
+    (click)="reset.emit()"
+    (mouseenter)="showLabel('Refresh')"
+    (mouseleave)="hideLabel()"></div>
 
     <div class="button fullscreen"
     [class.active]="fullscreen.active"
-    (click)="fullscreen.toggle()"></div>
+    (click)="showLabel(fullscreen.active ? 'Enter Fullscreen' : 'Exit fullscreen'); fullscreen.toggle()"
+    (mouseenter)="showLabel(fullscreen.active ? 'Exit fullscreen' : 'Enter Fullscreen')"
+    (mouseleave)="hideLabel()"></div>
+
+    <div class="button settings"
+    (mouseenter)="showLabel('Settings')"
+    (mouseleave)="hideLabel()"></div>
+
+    <div class="label-container">
+        <span class="label"
+        [class.shown]="labelShown">{{ labelText }}</span>
+    </div>
 </div>
