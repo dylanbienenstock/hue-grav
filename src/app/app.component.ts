@@ -36,15 +36,15 @@ export class AppComponent {
         switch (e.key) {
             case " ":
                 this.playing = !this.playing;
-                break;
+                    break;
             case "r":
             case "R":
                 this.reset.emit();
-                break;
+                    break;
             case "f":
             case "F":
-                this.fullscreen.request();
-                break;
+                this.fullscreen.toggle();
+                    break;
         }
 
     }
