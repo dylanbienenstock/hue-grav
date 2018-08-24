@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input, AfterViewInit } from '@angular/core';
 import { FullscreenService } from '../fullscreen.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { FullscreenService } from '../fullscreen.service';
     templateUrl: './interface.component.html',
     styleUrls: ['./interface.component.scss']
 })
-export class InterfaceComponent {
+export class InterfaceComponent implements AfterViewInit {
 
     constructor(public fullscreen: FullscreenService) { }
 
@@ -15,10 +15,24 @@ export class InterfaceComponent {
     @Output() playOrPause = new EventEmitter<any>();
     @Output() reset = new EventEmitter<any>();
 
+    public initialized: boolean = false;
+        
+    public settingsShown: boolean = false;
+
     public labelText: string;
     public labelShown: boolean;
     public labelTimeout: any;
 
+    ngAfterViewInit() {
+        setTimeout(() => {
+            this.initialized = true;
+        });
+    }
+
+    public toggleSettings() {
+        this.settingsShown = !this.settingsShown;
+    }
+    
     public showLabel(text: string) {
         clearTimeout(this.labelTimeout);
 

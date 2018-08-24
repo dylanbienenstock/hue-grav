@@ -16,9 +16,22 @@
     (mouseenter)="showLabel(fullscreen.active ? 'Exit fullscreen' : 'Enter Fullscreen')"
     (mouseleave)="hideLabel()"></div>
 
-    <div class="button settings"
-    (mouseenter)="showLabel('Settings')"
-    (mouseleave)="hideLabel()"></div>
+    <div>
+        <div class="button settings"
+        (click)="toggleSettings()"
+        (mouseenter)="showLabel('Settings')"
+        (mouseleave)="hideLabel()"></div>
+    
+        <div class="settings-container"
+        [hidden]="!initialized"
+        [slide-down]="settingsShown">
+            <img src="assets/img/pointer.svg" class="pointer">
+
+            <div class="settings">
+                <div style="display: inline-block; position: relative; left: 50%; top: 50%; transform: translate(-50%, -50%);">settings!</div>
+            </div>
+        </div>
+    </div>
 
     <div class="label-container">
         <span class="label"
