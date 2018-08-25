@@ -102,13 +102,33 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        setTimeout(() => {
-            this.initialized = true;
+        for (let setting of this.numberSettings) {
+            this.percentage[setting.name] = this.toPercent(setting);
+            this.leadingZeros[setting.name] = this.getLeadingZeros(setting);
+        }
 
-            for (let x of this.numberSettings) {
-                x.model
-                
-            }
+        setTimeout(() => {
+
+            this.initialized = true;
         });
+    }
+
+    toPercent(setting: NumberSetting): number {
+        let range = setting.max - setting.min;
+        let ratio = 1 - (setting.max - setting.default) / range;
+        let percent = ratio * 100;
+        let percentRounded = Math.round(percent);
+
+        return percentRounded;
+    }
+
+    getLeadingZeros(setting: NumberSetting): string {
+        switch (this.toPercent(setting).toString().length) {
+            case 0: return "000";
+            case 1: return "00";
+            case 2: return "0";
+        }
+
+        return "";
     }
 }
