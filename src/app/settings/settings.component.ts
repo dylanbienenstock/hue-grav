@@ -155,7 +155,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
     onMouseDownBarContainer(barContainer: HTMLElement, mouseX: number) {
         this.selectedBarContainer = barContainer;
-        this.adjustNumberSetting(mouseX);        
+        this.adjustNumberSetting(mouseX);
     }
 
     adjustNumberSetting(mouseX: number) {

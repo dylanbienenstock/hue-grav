@@ -1,3 +1,5 @@
+@import "../../mixins";
+
 $setting-width: 256px;
 $setting-height: 40px;
 $number-container-width: 72px;
@@ -17,13 +19,12 @@ $bar-padding: 5px;
     transform: translateX(calc(-50% + 16px));
 
     .pointer {
+        @include no-select;
+
         position: relative;
         left: 50%;
         top: 1px;
         transform: translateX(-50%);
-
-        user-select: none;
-        pointer-events: none;
     }
 
     .setting-container {
@@ -66,6 +67,8 @@ $bar-padding: 5px;
                 }
 
                 .label {
+                    @include no-select;
+
                     position: absolute;
                     transform: translate(3px, 6px);
                     
@@ -74,19 +77,15 @@ $bar-padding: 5px;
                     font-size: 15px;
                     font-weight: bold;
                     white-space: nowrap;
-                    
-                    user-select: none;
-                    pointer-events: none;
                 }
             }
 
             .number-container {
                 width: $number-container-width;
 
-                user-select: none;
-                pointer-events: none;
-
                 .number {
+                    @include no-select;
+
                     display: inline-block;
                     position: relative;
                     left: 50%;
