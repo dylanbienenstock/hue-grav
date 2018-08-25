@@ -52,13 +52,13 @@ export class SettingsComponent implements OnInit, AfterViewInit {
                 name: "Gravitational Constant",
                 binding: "gravitationalConstant",
                 min: 0.0025,
-                max: 0.02,
+                max: 0.035,
                 default: 0.01
             },
             {
                 name: "Particle Count",
                 binding: "particleCount",
-                min: 1,
+                min: 8,
                 max: 2048,
                 default: 1024
             },
