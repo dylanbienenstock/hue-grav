@@ -7,12 +7,14 @@ import { AppComponent } from './app.component';
 import { SimulationComponent } from './simulation/simulation.component';
 import { InterfaceComponent } from './interface/interface.component';
 import { FullscreenService } from './fullscreen.service';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         SimulationComponent,
-        InterfaceComponent
+        InterfaceComponent,
+        SettingsComponent
     ],
     imports: [
         BrowserModule,
