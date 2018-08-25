@@ -104,7 +104,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
         for (let setting of this.numberSettings) {
             setting.value = setting.default;
             
-            this.percentage[setting.name] = this.toPercent(setting);
+            this.percentage[setting.name] = this.settingValueToPercentage(setting);
             this.leadingZeros[setting.name] = this.getLeadingZeros(setting);
         }
 
@@ -113,7 +113,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
         });
     }
 
-    toPercent(setting: NumberSetting): number {
+    settingValueToPercentage(setting: NumberSetting): number {
         let range = setting.max - setting.min;
         let ratio = 1 - (setting.max - setting.value) / range;
         let percent = ratio * 100;
@@ -123,7 +123,9 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     }
 
     getLeadingZeros(setting: NumberSetting): string {
-        switch (this.toPercent(setting).toString().length) {
+        let percentage = this.settingValueToPercentage(setting);
+
+        switch (percentage.toString().length) {
             case 0: return "000";
             case 1: return "00";
             case 2: return "0";
