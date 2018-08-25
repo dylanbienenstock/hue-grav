@@ -55,18 +55,19 @@ declare interface SimulationConfig {
 
 declare interface NumberSetting {
     name: string;
-    binding: any;
+    binding: string;
     min: number;
     max: number;
     default: number;
-
     value?: number;
+
+    onChange?: () => void;
+    onChangeTimeout?: any;
 }
 
 declare interface BooleanSetting {
     name: string;
-    model: any;
+    binding: string;
     default: boolean;
-
     value?: boolean;
 }

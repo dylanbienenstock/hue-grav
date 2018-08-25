@@ -13,6 +13,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     @Input() config: SimulationConfig;
 
     @Output() configChanged = new EventEmitter<SimulationConfig>();
+    @Output() restartSimulation = new EventEmitter<any>();
 
     public initialized: boolean = false;
 
@@ -28,7 +29,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
         this.booleanSettings = [
             {
                 name: "Show Cursor",
-                model: this.config.showCursor,
+                binding: "showCursor",
                 default: true
             }
         ];
@@ -60,7 +61,10 @@ export class SettingsComponent implements OnInit, AfterViewInit {
                 binding: "particleCount",
                 min: 8,
                 max: 2048,
-                default: 1024
+                default: 1024,
+                onChange: () => {
+                    this.restartSimulation.emit();
+                }
             },
             {
                 name: "Particle Size",
@@ -189,7 +193,20 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
             this.percentage[settingName] = Math.round(ratio * 100);
             this.leadingZeros[settingName] = this.getLeadingZeros(setting);
+
+            this.onAdjustNumberSetting(setting);
         }
+    }
+
+    onAdjustNumberSetting(setting: NumberSetting) {
+        if (!setting.onChange) return;
+
+        clearTimeout(setting.onChangeTimeout);
+
+        setting.onChangeTimeout = 
+            setTimeout(() => {
+                setting.onChange();
+            }, 250);
     }
  
     @HostListener("window:mouseup")
