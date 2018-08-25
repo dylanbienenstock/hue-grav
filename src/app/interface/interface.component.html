@@ -26,7 +26,8 @@
         *ngIf="initialized"
         [visible]="settingsShown"
         [config]="config"
-        (configChanged)="configChanged.emit($event)"></app-settings>
+        (configChanged)="configChanged.emit($event)"
+        (restartSimulation)="restartSimulation.emit()"></app-settings>
     </div>
 
     <div class="label-container">

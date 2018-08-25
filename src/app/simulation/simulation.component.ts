@@ -14,7 +14,7 @@ export class SimulationComponent implements AfterViewInit {
     @Input() playing: boolean;
 
     /** Resets the simulation (not its configuration) */
-    @Input() reset: EventEmitter<any>;
+    @Input() onRestartSimulation: EventEmitter<any>;
     
     /** Simulation parameters */
     @Input() config: SimulationConfig;
@@ -60,8 +60,8 @@ export class SimulationComponent implements AfterViewInit {
             y: window.innerHeight / 2
         };
 
-        this.reset.subscribe(() => {
-            this.resetSimulation();
+        this.onRestartSimulation.subscribe(() => {
+            this.restartSimulation();
         });
 
         this.adjustCanvasSize();
@@ -125,7 +125,7 @@ export class SimulationComponent implements AfterViewInit {
         }
     }
 
-    resetSimulation() {
+    restartSimulation() {
         this.timesExploded = 0;
         this.canExplode = false;
         this.particles.length = 0;

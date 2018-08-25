@@ -12,7 +12,7 @@ export class AppComponent {
 
     public playing: boolean = false;
 
-    public reset = new EventEmitter<any>();
+    public restartSimulation = new EventEmitter<any>();
 
     public config: SimulationConfig = {
         showCursor: true,
@@ -39,7 +39,7 @@ export class AppComponent {
                     break;
             case "r":
             case "R":
-                this.reset.emit();
+                this.restartSimulation.emit();
                     break;
             case "f":
             case "F":

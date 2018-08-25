@@ -1,6 +1,6 @@
 <app-simulation
 [playing]="playing"
-[reset]="reset"
+[onRestartSimulation]="restartSimulation"
 [config]="config">
 </app-simulation>
 
@@ -9,5 +9,5 @@
 [config]="config"
 (configChanged)="onConfigChanged($event)"
 (playOrPause)="playing = !playing"
-(reset)="reset.emit()">
+(restartSimulation)="restartSimulation.emit()">
 </app-interface>
