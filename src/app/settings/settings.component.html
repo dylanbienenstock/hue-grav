@@ -3,7 +3,42 @@
 [slide-down]="visible">
     <img src="assets/img/pointer.svg" class="pointer">
 
-    <div class="settings">
-        
+    <div class="setting-container" *ngIf="initialized">
+        <div class="setting"
+        *ngFor="let setting of numberSettings">
+            <div class="border-container">
+                <div class="border left"></div>
+                <div class="border center"></div>
+                
+                <div class="border right">
+                    <div class="border left">
+                        <div class="border left"></div>
+
+                        <div class="border center">
+                            <div class="border top"></div>    
+                            <div class="border center"></div>    
+                            <div class="border bottom"></div>    
+                        </div>
+
+                        <div class="border right"></div>
+                    </div>
+
+                    <div class="border center"></div>
+                    <div class="border right"></div>
+                </div>
+            </div>
+
+            <div class="bar-container">
+                <div class="label">{{ setting.name }}</div>
+                <div class="bar"
+                [style.width.%]="percentage[setting.name]"></div>
+            </div>
+
+            <div class="number-container">
+                <div class="number">
+                    <span class="zeros">{{ leadingZeros[setting.name] }}</span>{{ percentage[setting.name] }}%
+                </div>
+            </div>
+        </div>
     </div>
 </div>

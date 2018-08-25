@@ -1,6 +1,15 @@
+$setting-width: 256px;
+$setting-height: 40px;
+$number-container-width: 72px;
+$border-length: 10px;
+$border-center-opacity: 0;
+$label-color: black;
+$gray-opacity: 0.3;
+$bar-padding: 5px;
+
 .container {
     position: absolute;
-    width: 100px;
+    width: 256px;
     font-size: 0;
 
     filter: drop-shadow(0 0 5px rgba(black, 0.75));
@@ -14,14 +23,163 @@
         transform: translateX(-50%);
     }
 
-    .settings {
-        background: black;
-        height: 100px;
-
+    .setting-container {
+        background-color: black;
         color: white;
         font-size: 14px;
 
         border: 1px solid white;
-        border-radius: 8px;
+
+        .setting {
+            font-size: 16px;
+            color: white;
+
+            height: $setting-height;
+            display: flex;
+            flex-flow: row nowrap;
+
+            .bar-container {
+                cursor: pointer;
+
+                width: $setting-width - $number-container-width - $bar-padding * 2;    
+                height: $setting-height - $bar-padding * 2;
+                margin-right: $bar-padding * 2;
+                box-sizing: border-box;
+                
+                transform: translate($bar-padding, $bar-padding);
+
+                background: rgba(white, $gray-opacity);
+
+                @media (min-width: 768px) {
+                    &:hover {
+                        background-color: rgba(white, $gray-opacity + 0.1);
+                    }
+                }
+
+                .bar {
+                    height: 100%;
+
+                    background-color: white;
+                }
+
+                .label {
+                    position: absolute;
+                    transform: translate(3px, 6px);
+                    
+                    color: $label-color;
+                    font-family: "Roboto", sans-serif;
+                    font-size: 15px;
+                    font-weight: bold;
+                    white-space: nowrap;
+                    
+                    user-select: none;
+                    pointer-events: none;
+                }
+            }
+
+            .number-container {
+                width: $number-container-width;
+
+                .number {
+                    display: inline-block;
+                    position: relative;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, calc(-50% - 2px));
+
+                    font-family: "Roboto Mono", monospace;
+                    font-size: 22px;
+
+                    .zeros {
+                        opacity: $gray-opacity;
+                    }
+                }
+            }
+
+            .border-container {
+                display: flex;
+                flex-flow: row nowrap;
+        
+                position: absolute;
+                width: $setting-width - 2px;
+                height: 1px;
+
+                transform: translate(-1px, -1px);
+
+                height: $setting-height;
+                
+                .border {
+                    box-sizing: border-box;
+                    height: $setting-height;
+
+                    &.center {
+                        // Horizontal center
+
+                        flex: 1;
+                        border-top: 1px solid rgba(white, $border-center-opacity);
+                    }
+                }
+
+                &> .border.left {
+                    width: $border-length;
+                    border-top: 1px solid white;
+                }
+
+                & > .border.right {
+                    display: flex;
+                    flex-flow: row nowrap;
+
+                    width: $number-container-width + $border-length - 2px;
+
+                    .border {
+                        &.right {
+                            width: $border-length;
+                            border-top: 1px solid white;
+                        }
+                    }
+
+                    & > .border.left {
+                        display: flex;
+                        flex-flow: row nowrap;
+                        height: $setting-height;
+
+                        .border {
+                            &.left, &.right {
+                                width: $border-length;
+                                border-top: 1px solid white;
+                            }
+
+                            &.center {
+                                height: $setting-height;
+
+
+                                display: flex;
+                                flex-flow: column nowrap;
+
+                                .border {
+                                    &.top {
+                                        height: $border-length;
+                                        border-left: 1px solid white;
+                                    }
+                                    
+                                    &.bottom {
+                                        height: $border-length;
+                                        border-left: 1px solid white;
+                                    }
+
+                                    &.center {
+                                        // Vertical center
+
+                                        flex: 1;
+                                        border-top: 0;
+                                        border-left: 1px solid rgba(white, $border-center-opacity);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
