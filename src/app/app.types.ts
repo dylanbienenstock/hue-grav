@@ -30,37 +30,32 @@ declare interface SimulationConfig {
     /** Gravitational constant (arbitrary) */
     gravitationalConstant: number;
 
-    /** Particle properties */
-    particles: {
-        /** Amount of particles to simulate */
-        count: number;
-        
-        /** Particle radius */
-        size: number;
+    /** Amount of particles to simulate */
+    particleCount: number;
+    
+    /** Particle radius */
+    particleSize: number;
 
-        /** Particle opacity */
-        opacity: number;
-    };
+    /** Particle opacity */
+    particleOpacity: number;
 
-    /** Explosion properties */
-    explosion: {
-        /**
-         * Radius in which all particles must be
-         * in order to trigger an explosion
-         */
-        triggerRadius: number;
 
-        /** Explosion velocity */
-        velocity: number;
+    /**
+     * Radius in which all particles must be
+     * in order to trigger an explosion
+     */
+    explosionTriggerRadius: number;
 
-        /** Probably doesn't do what you expect */
-        spread: number;
-    };
+    /** Explosion velocity */
+    explosionVelocity: number;
+
+    /** Probably doesn't do what you expect */
+    explosionSpread: number;
 }
 
 declare interface NumberSetting {
     name: string;
-    model: any;
+    binding: any;
     min: number;
     max: number;
     default: number;
