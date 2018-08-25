@@ -10,25 +10,21 @@ import { FullscreenService } from './fullscreen.service';
 export class AppComponent {
     constructor(private fullscreen: FullscreenService) { }
 
-    public playing: boolean = true;
+    public playing: boolean = false;
 
     public reset = new EventEmitter<any>();
 
     public config: SimulationConfig = {
         showCursor: true,
-        clearRectOpacity: 0.5,
-        velocityDampening: 0.001,
+        clearRectOpacity: 0.9,
+        velocityDampening: 0.005,
         gravitationalConstant: 0.01,
-        particles: {
-            count: 1024,
-            size: 8,
-            opacity: 0.5
-        },
-        explosion: {
-            triggerRadius: 100,
-            velocity: 17.5,
-            spread: 1
-        }
+        particleCount: 1024,
+        particleSize: 6,
+        particleOpacity: 0.85,
+        explosionTriggerRadius: 100,
+        explosionVelocity: 20,
+        explosionSpread: 1
     };
 
     @HostListener("window:keypress", ["$event"])
