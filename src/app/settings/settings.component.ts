@@ -17,6 +17,9 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     public booleanSettings: BooleanSetting[];
     
     public numberSettings: NumberSetting[];
+
+    public percentage: { [key: string]: number } = {};
+    public leadingZeros: { [key: string]: string } = {};
     
     ngOnInit() {
         this.booleanSettings = [
@@ -34,63 +37,63 @@ export class SettingsComponent implements OnInit, AfterViewInit {
         this.numberSettings = [
             {
                 name: "Trails",
-                model: this.config.clearRectOpacity,
+                binding: "clearRectOpacity",
                 min: 0.15,
                 max: 1,
                 default: 0.5,
             },
             {
                 name: "Velocity Dampening",
-                model: this.config.velocityDampening,
+                binding: "velocityDampening",
                 min: 0.0025,
-                max: 1,
+                max: 0.02,
                 default: 0.0075
             },
             {
                 name: "Gravitational Constant",
-                model: this.config.gravitationalConstant,
+                binding: "gravitationalConstant",
                 min: 0.0025,
-                max: 0.5,
+                max: 0.02,
                 default: 0.01
             },
             {
                 name: "Particle Count",
-                model: this.config.particles.count,
+                binding: "particles.count",
                 min: 1,
                 max: 2048,
                 default: 1024
             },
             {
                 name: "Particle Size",
-                model: this.config.particles.size,
+                binding: "particles.size",
                 min: 1,
                 max: 16,
                 default: 6 
             },
             {
                 name: "Particle Opacity",
-                model: this.config.particles.opacity,
+                binding: "particles.opacity",
                 min: 1,
                 max: 2048,
                 default: 1024
             },
             {
                 name: "Explosion Trigger Radius",
-                model: this.config.explosion.triggerRadius,
+                binding: "explosionTriggerRadius",
                 min: 8,
                 max: 256,
                 default: 128
             },
             {
                 name: "Explosion Velocity",
-                model: this.config.explosion.velocity,
+                binding: "explosionVelocity",
                 min: 8,
-                max: 256,
+                max: 48,
                 default: 16
             },
             {
                 name: "Explosion Spread",
-                model: this.config.explosion.spread,
+                binding: "explosionSpread",
                 min: 0,
                 max: 1,
                 default: 1
