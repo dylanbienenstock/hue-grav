@@ -5,8 +5,8 @@
 
     <div class="setting-container" *ngIf="initialized">
         <div class="setting"
-        *ngFor="let setting of numberSettings">
-            <div class="border-container">
+        *ngFor="let setting of numberSettings; first as first;">
+            <div class="border-container" [class.first]="first">
                 <div class="border left"></div>
                 <div class="border center"></div>
                 

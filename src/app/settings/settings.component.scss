@@ -113,6 +113,12 @@ $bar-padding: 5px;
 
                 height: $setting-height;
                 
+                &.first {
+                    & * {
+                        border-top: 0 !important;
+                    }
+                }
+
                 .border {
                     box-sizing: border-box;
                     height: $setting-height;
@@ -125,7 +131,7 @@ $bar-padding: 5px;
                     }
                 }
 
-                &> .border.left {
+                & > .border.left {
                     width: $border-length;
                     border-top: 1px solid white;
                 }
