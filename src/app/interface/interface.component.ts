@@ -11,6 +11,7 @@ export class InterfaceComponent implements AfterViewInit {
     constructor(public fullscreen: FullscreenService) { }
 
     @Input() playing: boolean;
+    @Input() config: SimulationConfig;
 
     @Output() playOrPause = new EventEmitter<any>();
     @Output() reset = new EventEmitter<any>();
