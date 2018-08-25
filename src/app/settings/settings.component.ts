@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, Input, OnInit } from '@angular/core';
+import { Component, AfterViewInit, Input, OnInit, ElementRef, HostListener, Output, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'app-settings',
@@ -11,6 +11,8 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
     @Input() visible: boolean;
     @Input() config: SimulationConfig;
+
+    @Output() configChanged = new EventEmitter<SimulationConfig>();
 
     public initialized: boolean = false;
 

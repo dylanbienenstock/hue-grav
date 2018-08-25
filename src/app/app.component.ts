@@ -27,6 +27,10 @@ export class AppComponent {
         explosionSpread: 1
     };
 
+    onConfigChanged(newConfig: SimulationConfig) {
+        this.config = newConfig;
+    }
+
     @HostListener("window:keypress", ["$event"])
     onKeyPress(e: KeyboardEvent) {
         switch (e.key) {

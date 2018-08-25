@@ -15,6 +15,7 @@ export class InterfaceComponent implements AfterViewInit {
 
     @Output() playOrPause = new EventEmitter<any>();
     @Output() reset = new EventEmitter<any>();
+    @Output() configChanged = new EventEmitter<SimulationConfig>();
 
     public initialized: boolean = false;
         
