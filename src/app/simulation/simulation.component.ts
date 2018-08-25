@@ -102,12 +102,12 @@ export class SimulationComponent implements AfterViewInit {
 
     /** Creates the particles */
     createParticles() {
-        for (let i = 0; i < this.config.particles.count; i++) {
+        for (let i = 0; i < this.config.particleCount; i++) {
             let lesserDimension = Math.min(this.clientRect.width, this.clientRect.height);
             let spawnRadius = lesserDimension / 4;
 
             // Polar to cartesian conversion
-            let theta = i * ((2 * Math.PI) / this.config.particles.count);
+            let theta = i * ((2 * Math.PI) / this.config.particleCount);
             let x = spawnRadius * Math.cos(theta);
             let y = spawnRadius * Math.sin(theta);
 
@@ -140,7 +140,7 @@ export class SimulationComponent implements AfterViewInit {
 
     /** Renders a single particle */
     drawParticle(particle: Particle) {
-        let color = `hsla(${ particle.hue }, 100%, 50%, ${ this.config.particles.opacity })`;
+        let color = `hsla(${ particle.hue }, 100%, 50%, ${ this.config.particleOpacity })`;
     
         if (this.timesExploded == 0) {
             color = "rgba(255, 255, 255, 0.2)";
@@ -152,7 +152,7 @@ export class SimulationComponent implements AfterViewInit {
         this.ctx.arc(
             particle.position.x,
             particle.position.y,
-            this.config.particles.size, 
+            this.config.particleSize, 
             0, 
             Math.PI * 2, 
             true
@@ -174,9 +174,9 @@ export class SimulationComponent implements AfterViewInit {
         let offset = ((Math.random() - 0.5) * 2) * Math.PI * 2;
 
         for (let particle of this.particles) {
-            let velocity = Math.random() * this.config.explosion.velocity;
+            let velocity = Math.random() * this.config.explosionVelocity;
             let angle = offset 
-                      + (particle.hue * this.config.explosion.spread)
+                      + (particle.hue * this.config.explosionSpread)
                       / this.timesExploded
                       * (Math.PI / 180);
                       
@@ -249,12 +249,12 @@ export class SimulationComponent implements AfterViewInit {
             let maxDist = Math.sqrt(pbDiff.x ** 2 + pbDiff.y ** 2);        
 
             // Decide if it's time for an explosion
-            if (maxDist < this.config.explosion.triggerRadius && this.canExplode) {
+            if (maxDist < this.config.explosionTriggerRadius && this.canExplode) {
                 this.canExplode = false;
                 this.timesExploded++;
 
                 this.explode();
-            } else if (maxDist > this.config.explosion.triggerRadius && !this.canExplode) {
+            } else if (maxDist > this.config.explosionTriggerRadius && !this.canExplode) {
                 this.canExplode = true;
             }
         }
