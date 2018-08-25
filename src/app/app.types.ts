@@ -57,3 +57,21 @@ declare interface SimulationConfig {
         spread: number;
     };
 }
+
+declare interface NumberSetting {
+    name: string;
+    model: any;
+    min: number;
+    max: number;
+    default: number;
+
+    value?: number;
+}
+
+declare interface BooleanSetting {
+    name: string;
+    model: any;
+    default: boolean;
+
+    value?: boolean;
+}
