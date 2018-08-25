@@ -22,15 +22,10 @@
         (mouseenter)="showLabel('Settings')"
         (mouseleave)="hideLabel()"></div>
     
-        <div class="settings-container"
-        [hidden]="!initialized"
-        [slide-down]="settingsShown">
-            <img src="assets/img/pointer.svg" class="pointer">
-
-            <div class="settings">
-                <div style="display: inline-block; position: relative; left: 50%; top: 50%; transform: translate(-50%, -50%);">settings!</div>
-            </div>
-        </div>
+        <app-settings
+        *ngIf="initialized"
+        [visible]="settingsShown"
+        [config]="config"></app-settings>
     </div>
 
     <div class="label-container">
