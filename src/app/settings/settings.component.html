@@ -28,7 +28,9 @@
                 </div>
             </div>
 
-            <div class="bar-container">
+            <div class="bar-container" #barContainer
+            [attr.data-setting-name]="setting.name"
+            (mousedown)="onMouseDownBarContainer(barContainer, $event.clientX)">
                 <div class="label">{{ setting.name }}</div>
                 <div class="bar"
                 [style.width.%]="percentage[setting.name]"></div>
