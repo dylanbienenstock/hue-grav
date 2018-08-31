@@ -10,8 +10,22 @@ export class SimulationComponent implements AfterViewInit {
 
     constructor() { }
 
+    private __playing: boolean;
+
     /** If the simulation is playing or paused */
-    @Input() playing: boolean;
+    @Input() set playing(value: boolean) {
+        this.__playing = value;
+
+        if (value) {
+            this.requestAnimationFrame()
+        } else {
+            window.cancelAnimationFrame(this.animationFrameRequestId)
+        }
+    }
+
+    get playing(): boolean {
+        return this.__playing;
+    }
 
     /** Resets the simulation (not its configuration) */
     @Input() onRestartSimulation: EventEmitter<any>;
@@ -49,10 +63,12 @@ export class SimulationComponent implements AfterViewInit {
     /** How many times an explosion has happened */
     public timesExploded: number = 0;
 
+    public animationFrameRequestId: number;
+
 
     /** Prepares the canvas for rendering */
     ngAfterViewInit() {
-        this.ctx = this.canvas.getContext("2d");
+        this.ctx = this.canvas.getContext("2d", { alpha: false });
         this.dpr = window.devicePixelRatio || 1;        
 
         this.mouse = {
@@ -66,12 +82,12 @@ export class SimulationComponent implements AfterViewInit {
 
         this.adjustCanvasSize();
         this.createParticles();
-        this.render();
     }
 
     @HostListener("window:resize")
     onResized() {
         this.adjustCanvasSize();
+        this.render(true);
     }
 
     @HostListener("window:mousemove", ["$event"])
@@ -83,13 +99,13 @@ export class SimulationComponent implements AfterViewInit {
     }
 
     @HostListener("window:touchmove", ["$event"])
-    ontouchmove(e: TouchEvent) {
+    onTouchMove(e: TouchEvent) {
         this.mouse = {
             x: e.touches.item(0).clientX,
             y: e.touches.item(0).clientY,
         };
     }
-    
+
     /** Fixes canvas dimensions, adjusts for high-dpi screens */
     adjustCanvasSize() {
         this.clientRect = this.canvas.getBoundingClientRect();
@@ -97,7 +113,7 @@ export class SimulationComponent implements AfterViewInit {
         this.canvas.width = this.clientRect.width * ( this.dpr);
         this.canvas.height = this.clientRect.height * ( this.dpr);
 
-        this.ctx.scale( this.dpr,  this.dpr);
+        this.ctx.scale(this.dpr,  this.dpr);
     }
 
     /** Creates the particles */
@@ -119,13 +135,17 @@ export class SimulationComponent implements AfterViewInit {
                 },
                 velocity: {
                     x: 0,
-                    y:0
+                    y: 0
                 }
             });
         }
+
+        this.render(true);
     }
 
     restartSimulation() {
+        this.ctx.clearRect(0, 0, this.clientRect.width, this.clientRect.height);
+
         this.timesExploded = 0;
         this.canExplode = false;
         this.particles.length = 0;
@@ -150,8 +170,8 @@ export class SimulationComponent implements AfterViewInit {
         this.ctx.beginPath();
 
         this.ctx.arc(
-            particle.position.x,
-            particle.position.y,
+            Math.round(particle.position.x),
+            Math.round(particle.position.y),
             this.config.particleSize, 
             0, 
             Math.PI * 2, 
@@ -185,10 +205,21 @@ export class SimulationComponent implements AfterViewInit {
         }
     }
 
-    /** The main render loop */
-    render() {
-        this.clearScreen();
+    requestAnimationFrame() {
+        this.animationFrameRequestId = 
+            window.requestAnimationFrame(() => {
+                this.render();
+            });
+    }
 
+    /** The main render loop */
+    render(override: boolean = false) {
+        if (!this.playing && !override) return;
+
+        if (!override) {
+            this.clearScreen();
+        }
+        
         // Two opposite points of the smallest possible
         // rectangle that contains all the particles
         let particleBounds = {
@@ -201,9 +232,10 @@ export class SimulationComponent implements AfterViewInit {
                 y: -Infinity
             }
         }
-
+    
         for (let particle of this.particles) {
-            if (this.playing) {
+
+            if (!override) {
                 // Difference between mouse and particle position
                 let mpDiff = this.getDiff2D(this.mouse, particle.position);
 
@@ -243,7 +275,7 @@ export class SimulationComponent implements AfterViewInit {
             this.drawParticle(particle);
         }
 
-        if (this.playing) {
+        if (!override) {
             // Length of bounds' diagonal
             let pbDiff = this.getDiff2D(particleBounds.min, particleBounds.max);
             let maxDist = Math.sqrt(pbDiff.x ** 2 + pbDiff.y ** 2);        
@@ -257,8 +289,8 @@ export class SimulationComponent implements AfterViewInit {
             } else if (maxDist > this.config.explosionTriggerRadius && !this.canExplode) {
                 this.canExplode = true;
             }
+
+            this.requestAnimationFrame();
         }
-        
-        window.requestAnimationFrame(this.render.bind(this));
     }
 }
