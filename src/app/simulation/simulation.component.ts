@@ -128,7 +128,7 @@ export class SimulationComponent implements AfterViewInit {
             let y = spawnRadius * Math.sin(theta);
 
             this.particles.push(<Particle> {
-                hue: i,
+                hue: i * (360 / this.config.particleCount),
                 position: {
                     x: x + this.clientRect.width / 2,
                     y: y + this.clientRect.height / 2
