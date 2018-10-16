@@ -170,8 +170,8 @@ export class SimulationComponent implements AfterViewInit {
         this.ctx.beginPath();
 
         this.ctx.arc(
-            Math.round(particle.position.x),
-            Math.round(particle.position.y),
+            particle.position.x,
+            particle.position.y,
             this.config.particleSize, 
             0, 
             Math.PI * 2, 
