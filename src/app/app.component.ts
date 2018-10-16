@@ -10,7 +10,7 @@ import { FullscreenService } from './fullscreen.service';
 export class AppComponent {
     constructor(private fullscreen: FullscreenService) { }
 
-    public playing: boolean = false;
+    public playing: boolean = true;
 
     public restartSimulation = new EventEmitter<any>();
 
