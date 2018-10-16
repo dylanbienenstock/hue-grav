@@ -195,10 +195,7 @@ export class SimulationComponent implements AfterViewInit {
 
         for (let particle of this.particles) {
             let velocity = Math.random() * this.config.explosionVelocity;
-            let angle = offset 
-                      + (particle.hue * this.config.explosionSpread)
-                      / this.timesExploded
-                      * (Math.PI / 180);
+            let angle = offset + particle.hue * (Math.PI / 180) * this.config.explosionSpread ;
                       
             particle.velocity.x += Math.cos(angle) * velocity;
             particle.velocity.y += Math.sin(angle) * velocity;
