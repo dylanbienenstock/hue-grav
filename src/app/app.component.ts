@@ -46,6 +46,10 @@ export class AppComponent {
                 this.fullscreen.toggle();
                     break;
         }
+    }
 
+    @HostListener("window:dragstart")
+    onDragStart() {
+        return false;
     }
 }
