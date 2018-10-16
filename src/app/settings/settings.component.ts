@@ -127,7 +127,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     }
 
     getLeadingZeros(setting: NumberSetting): string {
-        let percentage = this.settingValueToPercentage(setting);
+        let percentage = this.percentage[setting.name];
 
         switch (percentage.toString().length) {
             case 0: return "000";
