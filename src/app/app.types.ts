@@ -61,6 +61,8 @@ declare interface NumberSetting {
     default: number;
     value?: number;
 
+    easingCurve?: number[];
+
     onChange?: () => void;
     onChangeTimeout?: any;
 }
